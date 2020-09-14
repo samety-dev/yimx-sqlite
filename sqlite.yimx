@@ -1,0 +1,21 @@
+import ["stdsx", "jdbc"]
+
+//Connect db
+connection = getConnection("jdbc:sqlite:mydb.db")
+
+
+statement = connection.createStatement()
+
+statement.setQueryTimeout(30) 
+
+statement.executeUpdate("drop table if exists person")
+statement.executeUpdate("create table person (id integer, name string)")
+statement.executeUpdate("insert into person values(1, 'yimx')")
+statement.executeUpdate("insert into person values(2, 'lang')")
+
+rs = statement.executeQuery("select * from person")
+while(rs.next()) {
+  
+  println "name = " + rs.getString("name")
+  println "id = " + rs.getInt("id")
+}
